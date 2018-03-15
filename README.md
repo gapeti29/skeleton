@@ -16,7 +16,8 @@ Példa erre:
   Field called: Ennek a mezőnek hívják meg egy függvényét.
   String function: A meghívott függvényt tartalmazza, szövegesen.
   
-  Használatára egy konkrét példa:  //MovableThing, Move() függvényéből 
+  Használatára egy konkrét példa:  (MovableThing, Move() függvényéből)
+  
   Printer.ThingCallField("CALL: " + name, this, "boolean " + temp.GetName(), temp, ".Accept(this, d)");
   
   A kiírásnál az objektumok még kapnak egy számot is, a Printer osztályon belül tömbbeli sorszámukat kapják meg. Így a console ablakon végül ez jelenik meg:  
