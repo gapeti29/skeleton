@@ -154,9 +154,12 @@ public final class Game {
 				input = Cin.nextInt(); //0, 1, vagy 2
 				//Ha nem akarunk kilépni
 				if(input != 0) {
+					if(input == 1) System.out.println("Válssz az 1. menüpont A-F opciói közül!");
+					if(input == 2) System.out.println("Válssz a 2. menüpont A-H opciói közül!");
 					Cin = new Scanner(System.in);
 					choice = Cin.nextLine(); //A - H
 					if(choice.equals("H")) {
+						System.out.println("Válssz az A és B opciók közül!");
 						choice2H = Cin.nextLine();
 					}
 					CreateMap();

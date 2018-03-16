@@ -64,12 +64,32 @@ public class Worker extends MovableThing{
 	 */
 	public boolean PushedBy(Direction d) {
 		Printer.ThingCallThing("CALL: " + name, this, "boolean " + name, this, ".Move(" + d.toString() + ")");
-		if(!Move(d)) {
+		Move(d);
+		Printer.ThingReturn("RETURN: " + name, this, ".PushedBy(" + d.toString() + "): true");
+		return true;
+	}
+	
+	/**
+	 * A munkás a megadott irányba próbál meg elmozdulni.
+	 * @param d Direction típusú, ebbe az irányba mozogna.
+	 * @return boolean típusú, mely akkor true, ha sikeres volt a mozgás.
+	 */
+	public boolean Move(Direction d) {
+		Printer.ThingCallField("CALL: " + name, this, "Field " + GetField().GetName(), GetField(), ".GetNeighbour(" + d.toString()+  ")");
+		Field temp = GetField().GetNeighbour(d);
+		Printer.ThingCallField("CALL: " + name, this, "boolean " + temp.GetName(), temp, ".Accept(" + this.GetName() + Printer.GetThingNumber(this) + ", " + d.toString() + ")");
+		boolean b = temp.Accept(this, d);
+		if(!b) {
 			Printer.ThingCallThing("CALL: " + name, this, "void " + name, this, ".Disappear()");
 			Disappear();
 		}
-		Printer.ThingReturn("RETURN: " + name, this, ".PushedBy(" + d.toString() + "): true");
-		return true;
+		if(b) {
+			Printer.ThingReturn("RETURN: " + name, this, ".Move(" + d.toString() + "): true");
+		}
+		else {
+			Printer.ThingReturn("RETURN: " + name, this, ".Move(" + d.toString() + "): false");
+		}
+		return b;
 	}
 	
 	/**
