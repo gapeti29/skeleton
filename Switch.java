@@ -32,7 +32,12 @@ public class Switch extends Field{
 		if(super.Accept(t, d)){
 			Printer.FieldCallThing("CALL: " + name, this, "void " + t.GetName(), t, ".ControlSwitch(" + this.GetName() + Printer.GetFieldNumber(this) + ")");
 			t.ControlSwitch(this);
-			Printer.FieldReturn("RETURN: " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
+			if(d == null) {
+				Printer.FieldReturn("RETURN: " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", null): true");
+			}
+			else {
+				Printer.FieldReturn("RETURN: " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
+			}
 			return true;
 		}
 		else {
