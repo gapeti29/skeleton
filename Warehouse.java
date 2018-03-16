@@ -31,7 +31,7 @@ public class Warehouse {
 		}
 		
 		--remainingCrates;
-		Printer.WarehouseReturn("RETURN: " + name, this, ".CrateRemoved(c): void");
+		Printer.WarehouseReturn("RETURN: " + name, this, ".CrateRemoved(" + c.GetName() + Printer.GetThingNumber(c) + "): void");
 	}
 		
 	/**
@@ -139,14 +139,15 @@ public class Warehouse {
 		Printer.WarehouseCallField("CALL: " + name, this, "void " + f1.GetName(), f1, ".SetNeighbour(f0, Right)");
 		f1.SetNeighbour(f0, Direction.Right);
 		//Munkás létrehozása
-		Worker w0 = new Worker();
-		CreateWorker(w0);
+		Worker w = new Worker();
+		CreateWorker(w);
 		//Mezõre helyezés
 		Printer.WarehouseCallField("CALL: " + name, this, "boolean " + f0.GetName(), f0, ".Accept(w0, null)");
-		f0.Accept(w0, null);
+		f0.Accept(w, null);
 		//Szimuláció
-		Printer.WarehouseCallThing("CALL: " + name, this, "boolean " + w0.GetName(), w0, ".DirectMove(Left)");
-		w0.DirectMove(Direction.Left);
+		Printer.WarehouseCallThing("CALL: " + name, this, "boolean " + w.GetName(), w, ".DirectMove(Left)");
+		
+		w.DirectMove(Direction.Left);
 		
 		Printer.Remove();
 	}

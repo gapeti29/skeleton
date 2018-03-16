@@ -317,6 +317,66 @@ public final class Printer {
 		WarehouseCalled(calledType, called, function);
 	}
 	
+	public static int GetFieldNumber(Field f) {
+		if(fields != null) {
+			for(int i = 0; i < fields.length; ++i) {
+				if(fields[i] == f)
+					return i;
+			}
+		}
+		if(goals != null) {
+			for(int i = 0; i < goals.length; ++i) {
+				if(goals[i] == f)
+					return i;
+			}
+		}
+		if(holes != null) {
+			for(int i = 0; i < holes.length; ++i) {
+				if(holes[i] == f)
+					return i;
+			}
+		}
+		if(pillars != null) {
+			for(int i = 0; i < pillars.length; ++i) {
+				if(pillars[i] == f)
+					return i;
+			}
+		}
+		if(switches != null) {
+			for(int i = 0; i < switches.length; ++i) {
+				if(switches[i] == f)
+					return i;
+			}
+		}
+		return -1;
+	}
+	
+	public static int GetThingNumber(MovableThing t) {
+		if(crates != null) {
+			for(int i = 0; i < crates.length; ++i) {
+				if(crates[i] == t)
+					return i;
+			}
+		}
+		if(workers != null) {
+			for(int i = 0; i < workers.length; ++i) {
+				if(workers[i] == t)
+					return i;
+			}
+		}
+		return -1;
+	}
+	
+	public static int GetWarehouseNumber(Warehouse wh) {
+		if(warehouses != null) {
+			for(int i = 0; i < warehouses.length; ++i) {
+				if(warehouses[i] == wh)
+					return i;
+			}
+		}
+		return -1;
+	}
+	
 	/*
 	 * Hozzáadások...
 	 */

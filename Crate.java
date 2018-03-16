@@ -13,7 +13,7 @@ public class Crate extends MovableThing{
 		Printer.ThingCallWarehouse("CALL: " + name, this, "void " + GetField().GetWarehouse().GetName(), GetField().GetWarehouse(), ".CrateRemoved(this)");
 		GetField().GetWarehouse().CrateRemoved(this);
 		
-		Printer.ThingCallField("CALL: " + name, this, "void " + GetField().GetName(), GetField(), ".Remove(this)");
+		Printer.ThingCallField("CALL: " + name, this, "void " + GetField().GetName(), GetField(), ".Remove(" + this.GetName() + Printer.GetThingNumber(this) + ")");
 		GetField().Remove(this);
 		
 		Printer.ThingCallField("CALL: " + name, this, "void " + GetField().GetName(), GetField(), ".SetField(null)");
@@ -27,10 +27,10 @@ public class Crate extends MovableThing{
 	 * @param s Switch típusú, ezt a kapcsolót fogja bekapcsolni.
 	 */
 	public void ControlSwitch(Switch s) {
-		Printer.ThingCallField("CALL: " + name, this, "void " + s.GetName(), s, ".TurnOn()");
+		Printer.ThingCallField("CALL: " + name, this, "void " + s.GetName(), s, Printer.GetFieldNumber(s) + ".TurnOn()");
 		s.TurnOn();
 		
-		Printer.ThingReturn("RETURN: " + name, this, ".ControlSwitch(s): void");
+		Printer.ThingReturn("RETURN: " + name, this, ".ControlSwitch(" + s.GetName() + Printer.GetFieldNumber(s) + "): void");
 	}
 	
 	/**
@@ -39,14 +39,14 @@ public class Crate extends MovableThing{
 	 * @return boolean típusú, true értékkel tér vissza, ha sikeres volt a mozgás.
 	 */
 	public boolean PushedBy(Direction d)  {
-		Printer.ThingCallThing("CALL: " + name, this, "boolean " + name, this, ".Move(d)");
+		Printer.ThingCallThing("CALL: " + name, this, "boolean " + name, this, ".Move(" + d.toString() + ")");
 		boolean temp = Move(d);
 		
 		if(temp) {
-			Printer.ThingReturn("RETURN: " + name, this, "PushedBy(d): true");
+			Printer.ThingReturn("RETURN: " + name, this, "PushedBy(" + d.toString() + "): true");
 		}
 		else {
-			Printer.ThingReturn("RETURN: " + name, this, "PushedBy(d): false");
+			Printer.ThingReturn("RETURN: " + name, this, "PushedBy(" + d.toString() + "): false");
 		}
 		
 		return temp;
@@ -58,14 +58,14 @@ public class Crate extends MovableThing{
 	 * @return boolean típusú, true értékkel tér vissza, ha sikeres volt a mozgás.
 	 */
 	public boolean DirectPushedBy(Direction d) {
-		Printer.ThingCallThing("CALL: " + name, this, "boolean " + name, this, ".Move(d)");
+		Printer.ThingCallThing("CALL: " + name, this, "boolean " + name, this, ".Move(" + d.toString() + ")");
 		boolean temp = Move(d);
 		
 		if(temp) {
-			Printer.ThingReturn("RETURN: " + name, this, "DirectPushedBy(d): true");
+			Printer.ThingReturn("RETURN: " + name, this, "DirectPushedBy(" + d.toString() + "): true");
 		}
 		else {
-			Printer.ThingReturn("RETURN: " + name, this, "DirectPushedBy(d): false");
+			Printer.ThingReturn("RETURN: " + name, this, "DirectPushedBy(" + d.toString() + "): false");
 		}
 		
 		return temp;
@@ -82,6 +82,6 @@ public class Crate extends MovableThing{
 		Printer.ThingCallThing("CALL: " + name, this, "void " + name, this, "Disappear()");
 		Disappear();
 		
-		Printer.ThingReturn("RETURN: " + name, this, ".AtGoal(g): void");
+		Printer.ThingReturn("RETURN: " + name, this, ".AtGoal(" + g.GetName() + Printer.GetFieldNumber(g) + "): void");
 	}
 }

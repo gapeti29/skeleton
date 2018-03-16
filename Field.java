@@ -30,20 +30,25 @@ public class Field {
 	public boolean Accept(MovableThing t, Direction d) {
 		if(thing != null) {
 			//Ha sikerült arrébb tolni a mezõn lévõ dolgot.
-			Printer.FieldCallThing("CALL: " + name, this, "boolean " + thing.GetName() , thing, ".PushedBy(d)");
+			Printer.FieldCallThing("CALL: " + name, this, "boolean " + thing.GetName() , thing, ".PushedBy(" + d.toString() + ")");
 			if(thing.PushedBy(d)){
 				Accepted(t);
-				Printer.FieldReturn("RETURN " + name, this, ".Accept(t, d): true");
+				Printer.FieldReturn("RETURN " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
 				return true;
 			}
 			else {
-				Printer.FieldReturn("RETURN " + name, this, ".Accept(t, d): false");
+				Printer.FieldReturn("RETURN " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): false");
 				return false;
 			}
 		}
 		else {
 			Accepted(t);
-			Printer.FieldReturn("RETURN " + name, this, ".Accept(t, d): true");
+			if(d == null) {
+				Printer.FieldReturn("RETURN " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", null): true");
+			}
+			else {
+				Printer.FieldReturn("RETURN " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
+			}
 			return true;
 		}
 	}
@@ -57,20 +62,20 @@ public class Field {
 	public boolean DirectAccept(MovableThing t, Direction d) {
 		if(thing != null) {
 			//Ha sikerült arrébb tolni a mezõn lévõ dolgot.
-			Printer.FieldCallThing("CALL: " + name, this, "boolean " + thing.GetName() , thing, ".DirectPushedBy(d)");
+			Printer.FieldCallThing("CALL: " + name, this, "boolean " + thing.GetName() , thing, ".DirectPushedBy(" + d.toString() + ")");
 			if(thing.DirectPushedBy(d)){
 				Accepted(t);
-				Printer.FieldReturn("RETURN " + name, this, ".DirectAccept(t, d): true");
+				Printer.FieldReturn("RETURN " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
 				return true;
 			}
 			else {
-				Printer.FieldReturn("RETURN " + name, this, ".DirectAccept(t, d): false");
+				Printer.FieldReturn("RETURN " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): false");
 				return false;
 			}
 		}
 		else {
 			Accepted(t);
-			Printer.FieldReturn("RETURN " + name, this, ".DirectAccept(t, d): true");
+			Printer.FieldReturn("RETURN " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
 			return true;
 		}
 	}
@@ -82,7 +87,7 @@ public class Field {
 	private void Accepted(MovableThing t) {
 		//Régi mezõrõl törli az objektumot.
 		try {
-			Printer.FieldCallField("CALL: " + name, this, "void " + t.GetField().GetName(), t.GetField(), ".Remove(t)");
+			Printer.FieldCallField("CALL: " + name, this, "void " + t.GetField().GetName(), t.GetField(), ".Remove(" + t.GetName() + Printer.GetThingNumber(t) +")");
 			t.GetField().Remove(t);
 		} catch(NullPointerException e) {
 			/*
@@ -93,7 +98,7 @@ public class Field {
 		//Kölcsönösen eltárolják egymást.
 		thing = t;
 		
-		Printer.FieldCallThing("CALL: " + name, this, "void " + thing.GetName(), thing, ".SetField(this)");
+		Printer.FieldCallThing("CALL: " + name, this, "void " + thing.GetName(), thing, ".SetField(" + this.GetName() + Printer.GetFieldNumber(this) + ")");
 		thing.SetField(this);
 	}
 	
@@ -105,7 +110,7 @@ public class Field {
 		if(thing == t)
 			thing = null;
 		
-		Printer.FieldReturn("RETURN: " + name, this, ".Remove(t): void");
+		Printer.FieldReturn("RETURN: " + name, this, ".Remove(" + t.GetName() + Printer.GetThingNumber(t) + "): void");
 	}
 	
 	/**
@@ -114,7 +119,7 @@ public class Field {
 	 * @return	Field típust ad vissza.
 	 */
 	public Field GetNeighbour(Direction d) {
-		Printer.FieldReturn("RETURN: " + name, this, ".GetNeighbour(d): Field");
+		Printer.FieldReturn("RETURN: " + name, this, ".GetNeighbour("+d.toString()+"): "+neighbours.get(d).GetName() + Printer.GetFieldNumber(neighbours.get(d)));
 		return neighbours.get(d);
 	}
 	
@@ -125,7 +130,7 @@ public class Field {
 	 */
 	public void SetNeighbour(Field f, Direction d) {
 		neighbours.put(d, f);
-		Printer.FieldReturn("RETURN: " + name, this, ".SetNeighbour(f, d): void");
+		Printer.FieldReturn("RETURN: " + name, this, ".SetNeighbour(" + f.GetName() + Printer.GetFieldNumber(f) +", " + d.toString() + "): void");
 	}
 	
 	/**

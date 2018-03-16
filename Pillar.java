@@ -8,7 +8,7 @@ public class Pillar extends Field {
 	 */
 	public boolean Accept(MovableThing t, Direction d) {
 		//Nem csinálunk semmit, csak visszatérünk hamissal.
-		Printer.FieldReturn("RETURN: " + name, this, ".Accept(t, d): false");
+		Printer.FieldReturn("RETURN: " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): false");
 		return false;
 	}
 	
@@ -17,7 +17,7 @@ public class Pillar extends Field {
 	 */
 	public boolean DirectAccept(MovableThing t, Direction d) {
 		//Nem csinálunk semmit, csak visszatérünk hamissal.
-		Printer.FieldReturn("RETURN: " + name, this, ".DirectAccept(t, d): false");
+		Printer.FieldReturn("RETURN: " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): false");
 		return false;
 	}
 }
