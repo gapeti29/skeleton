@@ -30,13 +30,31 @@ public class Hole extends Field {
 	 * @return boolean típussal tér vissza, amely akkor true, ha elfogadta a MovableThing-et.
 	 */
 	public boolean Accept(MovableThing t, Direction d) {
-		if(d == null) {
-			Printer.FieldCallField("CALL: " + name, this, "boolean " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", null)");
+		if(GetThing() != null) {
+			//Ha sikerült arrébb tolni a mezõn lévõ dolgot.
+			Printer.FieldCallThing("CALL: " + name, this, "boolean " + GetThing().GetName() , GetThing(), ".PushedBy(" + d.toString() + ")");
+			if(GetThing().PushedBy(d)){
+				Accepted(t);
+				System.out.println("Nyitva legyen-e a lyuk?");
+				System.out.println("Input 'N': Nem");
+				System.out.println("Input 'Y': Igen");
+				Scanner Cin1 = new Scanner(System.in);
+				String open;
+				open = Cin1.nextLine();
+				if(open.equals("Y")) {
+					Printer.FieldCallThing("CALL: " + name, this, "void " + t.GetName(), t, ".Disappear(): void");
+					t.Disappear();
+				}
+				Printer.FieldReturn("RETURN " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
+				return true;
+			}
+			else {
+				Printer.FieldReturn("RETURN " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): false");
+				return false;
+			}
 		}
 		else {
-			Printer.FieldCallField("CALL: " + name, this, "boolean " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + ")");
-		}
-		if(super.Accept(t, d)) {
+			Accepted(t);
 			System.out.println("Nyitva legyen-e a lyuk?");
 			System.out.println("Input 'N': Nem");
 			System.out.println("Input 'Y': Igen");
@@ -47,12 +65,13 @@ public class Hole extends Field {
 				Printer.FieldCallThing("CALL: " + name, this, "void " + t.GetName(), t, ".Disappear(): void");
 				t.Disappear();
 			}
-			Printer.FieldReturn("RETURN " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
+			if(d == null) {
+				Printer.FieldReturn("RETURN " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", null): true");
+			}
+			else {
+				Printer.FieldReturn("RETURN " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
+			}
 			return true;
-		}
-		else {
-			Printer.FieldReturn("RETURN " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): false");
-			return false;
 		}
 	}
 	
@@ -63,8 +82,31 @@ public class Hole extends Field {
 	 * @return boolean típussal tér vissza, amely akkor true, ha elfogadta a MovableThing-et.
 	 */
 	public boolean DirectAccept(MovableThing t, Direction d) {
-		Printer.FieldCallField("CALL: " + name, this, "boolean " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + ")");
-		if(super.DirectAccept(t, d)) {
+		if(GetThing() != null) {
+			//Ha sikerült arrébb tolni a mezõn lévõ dolgot.
+			Printer.FieldCallThing("CALL: " + name, this, "boolean " + GetThing().GetName() , GetThing(), ".DirectPushedBy(" + d.toString() + ")");
+			if(GetThing().DirectPushedBy(d)){
+				Accepted(t);
+				System.out.println("Nyitva legyen-e a lyuk?");
+				System.out.println("Input 'N': Nem");
+				System.out.println("Input 'Y': Igen");
+				Scanner Cin1 = new Scanner(System.in);
+				String open;
+				open = Cin1.nextLine();
+				if(open.equals("Y")) {
+					Printer.FieldCallThing("CALL: " + name, this, "void " + t.GetName(), t, ".Disappear(): void");
+					t.Disappear();
+				}
+				Printer.FieldReturn("RETURN " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
+				return true;
+			}
+			else {
+				Printer.FieldReturn("RETURN " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): false");
+				return false;
+			}
+		}
+		else {
+			Accepted(t);
 			System.out.println("Nyitva legyen-e a lyuk?");
 			System.out.println("Input 'N': Nem");
 			System.out.println("Input 'Y': Igen");
@@ -77,10 +119,6 @@ public class Hole extends Field {
 			}
 			Printer.FieldReturn("RETURN " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
 			return true;
-		}
-		else {
-			Printer.FieldReturn("RETURN " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): false");
-			return false;
 		}
 	}
 }

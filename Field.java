@@ -84,7 +84,7 @@ public class Field {
 	 * A paraméterül kapott dolog rákerülhet a mezõre.
 	 * @param t MovableThing típusú, ez az objektum kerül a mezõre.
 	 */
-	private void Accepted(MovableThing t) {
+	protected void Accepted(MovableThing t) {
 		//Régi mezõrõl törli az objektumot.
 		try {
 			Printer.FieldCallField("CALL: " + name, this, "void " + t.GetField().GetName(), t.GetField(), ".Remove(" + t.GetName() + Printer.GetThingNumber(t) +")");
@@ -144,4 +144,6 @@ public class Field {
 	 * @param w Warehouse típusú, ebben szerepel a mezõ.
 	 */
 	public void SetWarehouse(Warehouse w) { warehouse = w; }
+	
+	public MovableThing GetThing() { return thing; }
 }

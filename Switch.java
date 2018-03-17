@@ -23,31 +23,32 @@ public class Switch extends Field{
 	 * @return boolean típussal tér vissza, mely akkor true, ha elfogadta a MovableThing-et.
 	 */
 	public boolean Accept(MovableThing t, Direction d) {
-		if(d == null) {
-			Printer.FieldCallField("CALL: " + name, this, "boolean " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", null)");
+		if(GetThing() != null) {
+			//Ha sikerült arrébb tolni a mezõn lévõ dolgot.
+			Printer.FieldCallThing("CALL: " + name, this, "boolean " + GetThing().GetName() , GetThing(), ".PushedBy(" + d.toString() + ")");
+			if(GetThing().PushedBy(d)){
+				Accepted(t);
+				Printer.FieldCallThing("CALL: " + name, this, "void " + t.GetName(), t, ".ControlSwitch(" + this.GetName() + Printer.GetFieldNumber(this) + ")");
+				t.ControlSwitch(this);
+				Printer.FieldReturn("RETURN " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
+				return true;
+			}
+			else {
+				Printer.FieldReturn("RETURN " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): false");
+				return false;
+			}
 		}
 		else {
-			Printer.FieldCallField("CALL: " + name, this, "boolean " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + ")");
-		}
-		if(super.Accept(t, d)){
+			Accepted(t);
 			Printer.FieldCallThing("CALL: " + name, this, "void " + t.GetName(), t, ".ControlSwitch(" + this.GetName() + Printer.GetFieldNumber(this) + ")");
 			t.ControlSwitch(this);
 			if(d == null) {
-				Printer.FieldReturn("RETURN: " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", null): true");
+				Printer.FieldReturn("RETURN " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", null): true");
 			}
 			else {
-				Printer.FieldReturn("RETURN: " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
+				Printer.FieldReturn("RETURN " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
 			}
 			return true;
-		}
-		else {
-			if(d == null) {
-				Printer.FieldReturn("RETURN: " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", null): false");
-			}
-			else {
-				Printer.FieldReturn("RETURN: " + name, this, ".Accept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): false");
-			}
-			return false;
 		}
 	}
 	
@@ -58,16 +59,27 @@ public class Switch extends Field{
 	 * @return boolean típussal tér vissza, mely akkor true, ha elfogadta a MovableThing-et.
 	 */
 	public boolean DirectAccept(MovableThing t, Direction d) {
-		Printer.FieldCallField("CALL: " + name, this, "boolean " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + ")");
-		if(super.DirectAccept(t, d)){
-			Printer.FieldCallThing("CALL: " + name, this, "void " + t.GetName(), t, ".ControlSwitch(this)");
-			t.ControlSwitch(this);
-			Printer.FieldReturn("RETURN: " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
-			return true;
+		if(GetThing() != null) {
+			//Ha sikerült arrébb tolni a mezõn lévõ dolgot.
+			Printer.FieldCallThing("CALL: " + name, this, "boolean " + GetThing().GetName() , GetThing(), ".DirectPushedBy(" + d.toString() + ")");
+			if(GetThing().DirectPushedBy(d)){
+				Accepted(t);
+				Printer.FieldCallThing("CALL: " + name, this, "void " + t.GetName(), t, ".ControlSwitch(this)");
+				t.ControlSwitch(this);
+				Printer.FieldReturn("RETURN " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
+				return true;
+			}
+			else {
+				Printer.FieldReturn("RETURN " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): false");
+				return false;
+			}
 		}
 		else {
-			Printer.FieldReturn("RETURN: " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): false");
-			return false;
+			Accepted(t);
+			Printer.FieldCallThing("CALL: " + name, this, "void " + t.GetName(), t, ".ControlSwitch(this)");
+			t.ControlSwitch(this);
+			Printer.FieldReturn("RETURN " + name, this, ".DirectAccept(" + t.GetName() + Printer.GetThingNumber(t) + ", " + d.toString() + "): true");
+			return true;
 		}
 	}
 	
